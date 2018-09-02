@@ -3,13 +3,7 @@ require 'rails_helper'
 RSpec.describe Note, type: :model do
 
   before do
-    @user = User.create(
-      first_name: 'Pavlo',
-      last_name: 'Kasianchuk',
-      email: 'kpm@gmail.com',
-      password:'tri-li-liA',
-    )
-
+    @user = FactoryBot.create(:user)
     @project = @user.projects.create(
       name: 'Test Project',
     )
@@ -58,6 +52,12 @@ RSpec.describe Note, type: :model do
         expect(Note.search('message')).to be_empty
       end
     end
+  end
+
+  it 'generates assocated data from a factory' do
+    note = FactoryBot.create(:note)
+    puts "This note's project is #{note.project.inspect}"
+    puts "This note's user is #{note.user.inspect}"
   end
 
 end
