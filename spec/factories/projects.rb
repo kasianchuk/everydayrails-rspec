@@ -20,5 +20,9 @@ FactoryBot.define do
     trait :with_notes do
       after(:create) { |i| create_list(:note, 5, project: i) }
     end
+
+    trait :invalid do
+      name nil
+    end
   end
 end
