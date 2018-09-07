@@ -23,6 +23,7 @@ group :development, :test do
   gem 'capybara', '~> 2.14.0'
   gem 'launchy', '~> 2.4.3'
   gem 'selenium-webdriver'
+  gem 'shoulda-matchers'
   gem 'rspec-rails', '~> 3.6.0'
 end
 

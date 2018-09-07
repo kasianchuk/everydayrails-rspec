@@ -16,8 +16,10 @@ RSpec.describe ProjectsController, type: :controller do
       it 'returns a 200 response' do
         sign_in @user
         get :index
-        expect(response).to have_http_status "200"
-        expect(response.status).to eq 200
+        aggregate_failures do
+          expect(response).to have_http_status "200"
+          expect(response.status).to eq 200
+        end
       end
     end
 

@@ -28,12 +28,20 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   # Use Devise test helpers in controller specs
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include RequestSpecHelper, type: :request
+  config.include Warden::Test::Helpers
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
