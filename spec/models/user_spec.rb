@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  it { is_expected.to validate_presence_of :first_name }
+  it { is_expected.to validate_presence_of :last_name }
+  it { is_expected.to validate_presence_of :email }
+  it { is_expected. to validate_uniqueness_of(:email).case_insensitive}
+
   it 'is valid with a first name, last name, email, and password' do
     user = FactoryBot.build(:user)
     expect(user).to be_valid
@@ -33,6 +38,10 @@ RSpec.describe User, type: :model do
     user = FactoryBot.build(:user, first_name: 'Pavlo', last_name: 'Kasianchuk')
     expect(user.name).to eq 'Pavlo Kasianchuk'
   end
+
+  subject(:user) { FactoryBot.build(:user) }
+  it { is_expected.to satisfy { |user| user.name == 'Pavlo Kasianchuk' } }
+
 
   it 'has a valid factory' do
     expect(FactoryBot.build(:user)).to be_valid

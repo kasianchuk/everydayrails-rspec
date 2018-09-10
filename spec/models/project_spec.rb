@@ -7,6 +7,7 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:notes) }
   end
 
+  it { is_expected.to validate_uniqueness_of(:name).scoped_to(:user_id) }
   it 'does not allow duplicate project names per user' do
     user = FactoryBot.create(:user)
 

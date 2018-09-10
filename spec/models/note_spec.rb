@@ -73,4 +73,18 @@ RSpec.describe Note, type: :model do
     puts "This note's user is #{note.user.inspect}"
   end
 
+  describe 'mock and stubs' do
+    it 'delegate to the user who created it without Mock & Stab' do
+      user = FactoryBot.create(:user)
+      note = Note.new(user: user)
+      expect(note.user_name).to eq 'Pavlo Kasianchuk'
+    end
+
+    it 'delegate to the user who created it with Mock & Stab' do
+      user = instance_double('User', name: 'Pavlo Kasianchuk')
+      note = Note.new
+      allow(note).to receive(:user).and_return(user)
+      expect(note.user_name).to eq 'Pavlo Kasianchuk'
+    end
+  end
 end
